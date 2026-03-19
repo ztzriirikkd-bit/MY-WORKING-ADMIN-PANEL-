@@ -1,82 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Admin Panel</title>
-
-<style>
-body {
-    background:#020617;
-    color:white;
-    text-align:center;
-    font-family:Arial;
-}
-.box {
-    background:#1e293b;
-    padding:25px;
-    margin:60px auto;
-    width:90%;
-    max-width:320px;
-    border-radius:15px;
-}
-input {
-    padding:10px;
-    width:90%;
-    margin:10px;
-    border:none;
-    border-radius:5px;
-}
-button {
-    padding:10px 20px;
-    background:#22c55e;
-    border:none;
-    border-radius:5px;
-    color:white;
-    cursor:pointer;
-}
-</style>
-
+  <title>HACKER TEAM OFC ADMIN</title>
 </head>
-<body>
+<body style="background:#0f172a;color:white;text-align:center;font-family:Arial">
 
-<div class="box">
+<h1>⚡ HACKER TEAM OFC ADMIN ⚡</h1>
 
-<h2>⚙️ ADMIN PANEL</h2>
+<input id="apk" placeholder="Enter APK Link" style="padding:10px;width:80%"><br><br>
+<input id="video" placeholder="Enter YouTube Video ID" style="padding:10px;width:80%"><br><br>
 
-<input type="text" id="apk" placeholder="https://t.me/+_2DzGrWFGXU5NmNl">
-<input type="text" id="video" placeholder="Enter YouTube Video ID">
+<button onclick="saveData()" style="padding:10px 20px;background:green;color:white;border:none">
+SAVE DATA
+</button>
 
-<button onclick="saveData()">SAVE</button>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-<p id="msg"></p>
-
-</div>
-
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-
-<script>
-
-var firebaseConfig = {
-  apiKey: "AIzaSyCMNr0GmJNf1-6tmODKR18mfrE-Nyy4YfI",
+const firebaseConfig = {
+  apiKey: "AIzaSyDUMMYKEY123456",
   authDomain: "hacker-xaman.firebaseapp.com",
   databaseURL: "https://hacker-xaman-default-rtdb.firebaseio.com",
-  projectId: "hacker-xaman",
+  projectId: "hacker-xaman"
 };
 
-firebase.initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
 
-function saveData(){
-    var apk = document.getElementById("apk").value;
-    var video = document.getElementById("video").value;
+window.saveData = function() {
+  const apk = document.getElementById("apk").value;
+  const video = document.getElementById("video").value;
 
-    firebase.database().ref("app").set({
-        apk: apk,
-        video: video
-    });
-
-    document.getElementById("msg").innerHTML="✅ Saved!";
+  set(ref(db, "app"), {
+    apk: apk,
+    video: video
+  }).then(() => {
+    alert("✅ Saved Successfully");
+  });
 }
-
 </script>
 
 </body>
